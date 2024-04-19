@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="so_reference_field">
+            <field name="name">stock.valuation.layer.tree.so.ref</field>
+            <field name="model">stock.valuation.layer</field>
+            <field name="inherit_id" ref="stock_account.stock_valuation_layer_tree"/>
+            <field name="arch" type="xml">
+                  <xpath expr="//field[@name='create_date']" position="after">
+                    <field optional="show" name="sale_order_reference"/>
+                    <field optional="show" name="sale_order_customer_name"/>
+                  </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_valuation_layer_tree_search" model="ir.ui.view">
+            <field name="name">stock.valuation.layer.tree.search</field>
+            <field name="model">stock.valuation.layer</field>
+            <field name="inherit_id" ref="stock_account.view_inventory_valuation_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter" position="inside">
+                    <!-- Add custom field 'sale_order_reference' to the filter -->
+                    <filter string="Sale Order Reference" name="sale_order_reference" domain="[]" context="{'group_by':'sale_order_reference'}"/>
+                    <!-- Add custom field 'sale_order_customer_name' to the filter -->
+                    <filter string="Customer Name" name="sale_order_customer_name" domain="[]" context="{'group_by':'sale_order_customer_name'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
